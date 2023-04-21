@@ -1,0 +1,6 @@
+{% for data in userData%}
+<tr>
+  <td>{{data.url}}</td>
+  <td><a href="{% url 'shortner:delete' data.id %}" >Delete</a></td>
+</tr>
+{% endfor %}

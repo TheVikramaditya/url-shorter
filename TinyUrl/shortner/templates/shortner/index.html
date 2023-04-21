@@ -1,0 +1,45 @@
+{% extends 'shortner/base.html'%}
+{% block content%}
+   
+      <h3>Welcome to the Tiny Url</h3>
+        <div class="row" style="margin-left:auto;margin-right:auto;width:800px;text-align: center;">
+            
+            <form method="POST" id="form_submit"> 
+              {% csrf_token %}
+                <div class="form-group">
+                  
+                  <input type="text" style="width:100%;" class="form-control" id="url" name="url" placeholder="Enter url">
+                  </div>
+                <button type="submit" id="clik" class="btn btn-primary">Submit</button>
+              </form>
+            
+        <div style="margin-left:auto;margin-right:auto;width:800px;text-align: center;" class="row" id="showTiny">
+        </div>
+      </div>
+   
+{% endblock %}
+
+{% block script %}
+<script>
+$("#clik").on('click',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url 'shortner:create_url' %}',
+            data:
+            {
+                url:$("#url").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+
+            success:function(data){
+
+                  // alert($('#date').val());
+                  console.log(data)
+                  $('#showTiny').html(data)
+                    }
+            })
+        });
+
+</script>
+{% endblock %}
