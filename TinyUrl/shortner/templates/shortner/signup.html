@@ -1,0 +1,22 @@
+{% extends 'shortner/base.html'%}
+{% block content %}
+
+<form method="POST" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+        {{field.label_tag}}
+        {{field}}
+        {{field.errors|striptags}}
+    </div>
+    {% endfor %}
+    <input type="submit" class="btn btn-primary" value="submit">
+
+</form>
+{% if messages %}
+{% for message in messages%}
+<span class="badge badge-success">{{message}}</span>
+<!-- <span {% if messages.tags %} class="badge badge-{{message.tags}}" {% endif %}>{{message}}</span> -->
+{% endfor %}
+{% endif %}
+{% endblock %}

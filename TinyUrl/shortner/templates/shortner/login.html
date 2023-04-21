@@ -1,0 +1,22 @@
+{% extends 'shortner/base.html' %}
+{% block content %}
+<form method="POST" novalidate>
+    {% csrf_token %}
+    <br>
+    {% for field in form %}
+    <div class="form-group">
+        {{field.label_tag}}
+        {{field}}
+        {{field.errors|striptags}}
+    </div>
+    {% endfor %}
+    <input type="submit" class="btn btn-primary" value="submit">
+    <br><br>
+    <!-- it will show default errors -->
+    {% if form.non_field_errors %}
+    {%for error in form.non_field_errors%}
+    <span class="badge badge-danger">{{error}}</span>
+    {%endfor%}
+    {% endif %}
+</form>
+{% endblock %}
